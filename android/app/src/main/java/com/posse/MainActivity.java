@@ -13,13 +13,8 @@ import java.util.List;
 
 public class MainActivity extends ReactActivity {
 
-    CallbackManager mCallbackManager;
+    private CallbackManager mCallbackManager;
 
-    /**
-     * Returns the name of the main component registered from JavaScript.
-     * This is used to schedule rendering of the component.
-     */
-    @Override
     protected String getMainComponentName() {
         return "Posse";
     }
@@ -43,6 +38,7 @@ public class MainActivity extends ReactActivity {
         ReactPackage packages[] = new ReactPackage[] {
             new MainReactPackage(),
             new FBSDKPackage(mCallbackManager),
+            new PosseReactPackage(this),
         };
 
         return Arrays.<ReactPackage>asList(packages);
@@ -53,4 +49,5 @@ public class MainActivity extends ReactActivity {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
 }

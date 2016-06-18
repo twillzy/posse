@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View, Navigator } from 'react-native';
 import Login from './App/Views/login';
+// import Posse from './App/Views/posse';
 
 var RouteMapper = function(route, navigationOperations, onComponentRef) {
   if (route.name === 'login') {
-    return <Login navigator={navigationOperations}/>
+    return <Login navigator={navigationOperations} {...route.passProps}/>
+  } else if (route.name === 'posse') {
+    return <Posse navigator={navigationOperations} fbid={route.fbid} {...route.passProps}/>
   }
 };
 

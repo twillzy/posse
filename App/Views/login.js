@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
-import { LoginButton, AccessToken } from 'react-native-fbsdk';
+import { LoginButton, AccessToken, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
 import { StyleSheet, Text, View, Navigator, Image } from 'react-native';
+import FacebookLogin from './../NativeModules/FacebookLogin';
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      fbid: "",
+      accessToken: "",
+      firstName: "",
+      lastName: "",
+      gender: ""
+    };
+  }
+
+  _navigate(property){
+    this.props.navigator.push({
+      name: property,
+      fbid: this.state.fbid,
+    });
   }
 
   render() {
@@ -25,13 +39,53 @@ export default class Login extends Component {
               } else {
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
-                    alert(data.accessToken.toString())
+                    this.setState({accessToken: data.accessToken.toString()});
+                    const responseCallback = ((error, result) => {
+                      const response = {};
+                      if (error) {
+                            response.ok = false;
+                            response.error = error;
+                            return(response);
+                      } else {
+                            response.ok = true;
+                            response.json = result;
+                            this.setState({fbid: result.id, firstName: result.first_name, lastName: result.last_name, gender: result.gender});
+                            handleFacebookAccessToken(this.state.accessToken, this.state.fbid, this.state.firstName, this.state.lastName, this.state.gender);
+                            return(response);
+                      }
+                    });
+
+                    const profileRequestParams = {
+                      fields: {
+                          string: 'id, email, first_name, last_name, gender'
+                      }
+                    };
+
+                    const profileRequestConfig = {
+                      httpMethod: 'GET',
+                      version: 'v2.5',
+                      parameters: profileRequestParams,
+                      accessToken: data.accessToken.toString()
+                    };
+
+                    const profileRequest = new GraphRequest(
+                      '/me',
+                      profileRequestConfig,
+                      responseCallback,
+                    );
+
+                    new GraphRequestManager().addRequest(profileRequest).start();
                   }
-                )
+                );
               }
             }
           }
-          onLogoutFinished={() => alert("logout.")}/>
+          onLogoutFinished={() => {
+            handleSignout().then(() => {
+              console.log("Signed out");
+              console.log(this._navigate("posse"));
+            })
+          }}/>
       </View>
     );
   }
@@ -50,3 +104,19 @@ const styles = StyleSheet.create({
     marginBottom: 5
   }
 });
+
+async function handleFacebookAccessToken(token, fbid, firstName, lastName, gender) {
+  try {
+    await FacebookLogin.handleFacebookAccessToken(token, fbid, firstName, lastName, gender);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function handleSignout() {
+  try {
+    await FacebookLogin.handleSignout();
+  } catch (e) {
+    console.error(e);
+  }
+}
