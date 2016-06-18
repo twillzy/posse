@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { LoginButton, AccessToken } from 'react-native-fbsdk';
-import { StyleSheet, Text, View, Navigator } from 'react-native';
+import { StyleSheet, Text, View, Navigator, Image } from 'react-native';
 
 export default class Login extends Component {
   constructor(props) {
@@ -10,7 +10,10 @@ export default class Login extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
+        <Image
+          style={styles.logo}
+          source={require('./../Images/posse_logo.png')}/>
         <LoginButton
           publishPermissions={["publish_actions"]}
           onLoginFinished={
@@ -34,21 +37,16 @@ export default class Login extends Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     backgroundColor: '#F5FCFF',
-//   },
-//   welcome: {
-//     fontSize: 20,
-//     textAlign: 'center',
-//     margin: 10,
-//   },
-//   instructions: {
-//     textAlign: 'center',
-//     color: '#333333',
-//     marginBottom: 5,
-//   },
-// });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  logo: {
+    width: 400,
+    height: 400,
+    marginBottom: 5
+  }
+});
