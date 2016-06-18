@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1010297313426",
+    "firebase_url": "https://posse-f38ec.firebaseio.com",
+    "project_id": "posse-f38ec",
+    "storage_bucket": "posse-f38ec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010297313426:android:dfd8fe6f5501bab9",
+        "android_client_info": {
+          "package_name": "com.posse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010297313426-vd67po2kr3ohkgkccdh3pnhi2p854fac.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.posse",
+            "certificate_hash": "88FFE032B71510777291DAE95ACA0E6347590837"
+          }
+        },
+        {
+          "client_id": "1010297313426-d06i2bve6cho0fk9ka7glr9lpp4kp7p5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMQfTPsI2C6TlqVHkLboRCkG7_jXaIpq4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010297313426-d06i2bve6cho0fk9ka7glr9lpp4kp7p5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
